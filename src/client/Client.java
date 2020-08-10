@@ -12,9 +12,10 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
- * @author GAME
+ * @author r0b
  */
 public class Client {
 
@@ -23,12 +24,16 @@ public class Client {
     DataOutputStream out;
     final String HOST = "127.0.0.1";
     final int PORT = 5000;
+    
+    //Crea socket client
+        Socket sclient;
+        
+        //missatge a  enviar
+       private String missatge= "hola";
 
     public Client() {
 
     }
-
-    
 
     //TODO
     /**
@@ -37,13 +42,14 @@ public class Client {
     public static void main(String[] args) {
         // host servidor i port
         Client cliente = new Client();
-        cliente.engega();
+        //cliente.engega();
+        
+        Vclient vclient = new Vclient();
+        vclient.setVisible(true);
 
     }
 
-    private void engega() {
-        Socket sclient;//socket client
-
+    public void engega() {
         try {
             //socket client
             sclient = new Socket(HOST, PORT);
@@ -53,23 +59,13 @@ public class Client {
             out = new DataOutputStream(sclient.getOutputStream());
 
             //Envia missatge
-            /**/
-            try {
-                //TODO
-                //Envia missatge
-
-                envia("hola");
-                
-                //out.writeUTF("nola");
-            } catch (Exception ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            envia();
 
             //Rep missatge
             String missatgerebut = in.readUTF();
             System.out.println("client: em diuen " + missatgerebut);
 
-            sclient.close();
+            atura();
 
         } catch (Exception ex) {
 
@@ -80,19 +76,35 @@ public class Client {
     public void llegeix() {
         //TODO
     }
+    private void atura() {
+        try {
+            //TODO
+            sclient.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void formata() {
         //TODO
     }
 
-    public void envia(String missatge) {
+    public void envia() {
         try {
-            
+
             out.writeUTF(missatge);
 
         } catch (IOException ex) {
 
         }
+    }
+
+    public String getMissatge() {
+        return missatge;
+    }
+
+    public void setMissatge(String missatge) {
+        this.missatge = missatge;
     }
 
 }

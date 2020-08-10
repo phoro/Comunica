@@ -14,21 +14,21 @@ import java.net.Socket;
 /**
  * escolta els clients pel port designat es comunica amb una base de dades
  *
- * @author GAME
+ * @author r0b
  */
 public class Servidor {
 
     //port del servidor
-    final int PORT = 5000;
-    ServerSocket servidor = null;//socket servidor
-    Socket sclient = null;//socket auxiliar client per rebre clients
+    private final int PORT = 5000;
+    private ServerSocket servidor = null;//socket servidor
+    private Socket sclient = null;//socket auxiliar client per rebre clients
 
     // Stream d'entrada i sortida de tipus primitius
-    DataInputStream in;
-    DataOutputStream out;
+    private DataInputStream in;
+    private DataOutputStream out;
 
     // per comunicar-se amb la bd
-    Data data = new Data("comunica");
+    private Data data = new Data("comunica");
 
     public static void main(String[] args) {
 
@@ -36,7 +36,7 @@ public class Servidor {
         server.engega();
     }
 
-    private void engega() {
+    public void engega() {
 
         try {
             
