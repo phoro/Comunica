@@ -28,8 +28,9 @@ public class Servidor {
         DataInputStream in;
         DataOutputStream out;
 
-        // Connexió amb la base de dades
-        Data data = null;
+        // Connexió amb la base de dades especificada
+        Data data = new Data("comunica");
+        data.connectaBD();
 
         try {
 
@@ -39,7 +40,7 @@ public class Servidor {
 
             //Escolta continua
             while (true) {
-                data.connectaBD();
+                data.taulaAll("caixer");
 
                 //Espera que es connecti un client
                 sclient = servidor.accept();
