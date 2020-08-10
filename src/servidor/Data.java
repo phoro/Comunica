@@ -22,18 +22,15 @@ public class Data {
     String database;
     Connection connexio;
 
-    //el constructor assigna la base de dades i la ocnnecta
+    //el constructor ocnnect la base de dades  
     public Data(String database) {
         this.database = database;
-        connectaBD();
+        
 
     }
 
-    public void connectaBD() {
-        String server = "127.0.0.1";
-        int port = 5432;
-        String user = "ucomunica";
-        String pass = "pcomunica";
+    public void connectaBD(String server, int port, String user, String pass) {
+          
 
         try {
             //registra el driver per a la connexió amb al servidor

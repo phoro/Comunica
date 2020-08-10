@@ -17,10 +17,18 @@ import java.util.logging.Logger;
  * @author GAME
  */
 public class Client {
-    
-    public Client(Socket sclient){
-        
+
+    // Stream d'entrada i sortida de tipus primitius
+    DataInputStream in;
+    DataOutputStream out;
+    final String HOST = "127.0.0.1";
+    final int PORT = 5000;
+
+    public Client() {
+
     }
+
+    
 
     //TODO
     /**
@@ -28,15 +36,13 @@ public class Client {
      */
     public static void main(String[] args) {
         // host servidor i port
-        final String HOST = "127.0.0.1";
-        final int PORT = 5000;
+        Client cliente = new Client();
+        cliente.engega();
 
-        // Stream d'entrada i sortida de tipus primitius
-        DataInputStream in;
-        DataOutputStream out;
-        
+    }
+
+    private void engega() {
         Socket sclient;//socket client
-        Client cliente = null;
 
         try {
             //socket client
@@ -47,13 +53,15 @@ public class Client {
             out = new DataOutputStream(sclient.getOutputStream());
 
             //Envia missatge
-            // clientw.envia("hola");
             /**/
             try {
                 //TODO
                 //Envia missatge
-                out.writeUTF("nola");
-            } catch (IOException ex) {
+
+                envia("hola");
+                
+                //out.writeUTF("nola");
+            } catch (Exception ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -79,9 +87,10 @@ public class Client {
 
     public void envia(String missatge) {
         try {
-            //TODO
+            
+            out.writeUTF(missatge);
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
 
         }
     }

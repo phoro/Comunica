@@ -18,29 +18,35 @@ import java.net.Socket;
  */
 public class Servidor {
 
+    //port del servidor
+    final int PORT = 5000;
+    ServerSocket servidor = null;//socket servidor
+    Socket sclient = null;//socket auxiliar client per rebre clients
+
+    // Stream d'entrada i sortida de tipus primitius
+    DataInputStream in;
+    DataOutputStream out;
+
+    // per comunicar-se amb la bd
+    Data data = new Data("comunica");
+
     public static void main(String[] args) {
-        //port del servidor
-        final int PORT = 5000;
-        ServerSocket servidor = null;//socket servidor
-        Socket sclient = null;//socket auxiliar client per rebre clients
 
-        // Stream d'entrada i sortida de tipus primitius
-        DataInputStream in;
-        DataOutputStream out;
+        Servidor server = new Servidor();
+        server.engega();
+    }
 
-        // Connexió amb la base de dades especificada
-        Data data = new Data("comunica");
-        data.connectaBD();
+    private void engega() {
 
         try {
-
+            
+            data.connectaBD("127.0.0.1", 5432, "ucomunica", "pcomunica");
             //socket del servidor
             servidor = new ServerSocket(PORT);
             System.out.println("Servidor iniciat");
 
-            //Escolta continua
+            //Escolta continua de peticions de clients 
             while (true) {
-                data.taulaAll("caixer");
 
                 //Espera que es connecti un client
                 sclient = servidor.accept();
@@ -56,6 +62,7 @@ public class Servidor {
                 System.out.println("Servidor ha rebut el següent missatge: " + missatge);
 
                 //Resposta
+                data.taulaAll("caixer");
                 out.writeUTF("¡Hola món des del servidor!");
 
                 //Desconnecto client
@@ -69,4 +76,5 @@ public class Servidor {
         }
     }
 
+    
 }
