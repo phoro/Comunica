@@ -12,30 +12,35 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author r0b
  */
 public class Client {
+    
+    //Servidor host i port
+    final String HOST = "127.0.0.1";
+    final int PORT = 5000;
 
     // Stream d'entrada i sortida de tipus primitius
     DataInputStream in;
     DataOutputStream out;
-    final String HOST = "127.0.0.1";
-    final int PORT = 5000;
+
+    //Socket client
+    Socket sclient;
+
+    //missatge a  enviar
+    public static String missatge = "buit";
     
-    //Crea socket client
-        Socket sclient;
-        
-        //missatge a  enviar
-       public static String missatge= "";
-    Vclient vclient = new Vclient();
+    Vclient vclient = new Vclient(this);
+           
+
+    //Constructor
     public Client() {
 
     }
 
-    //TODO
+    
     /**
      * @param args the command line arguments
      */
@@ -44,14 +49,13 @@ public class Client {
         Client cliente = new Client();
         cliente.engega();
         
-        
-        
 
     }
 
     public void engega() {
         try {
-            vclient.setVisible(true);
+            //UI
+     vclient.setVisible(true);
             //socket client
             sclient = new Socket(HOST, PORT);
 
@@ -60,11 +64,12 @@ public class Client {
             out = new DataOutputStream(sclient.getOutputStream());
 
             //Envia missatge
-            envia("hola");
+            envia(missatge);
 
             //Rep missatge
             String missatgerebut = in.readUTF();
             System.out.println("client: em diuen " + missatgerebut);
+            vclient.infotext(missatgerebut+"\n");
 
             atura();
 
@@ -77,6 +82,7 @@ public class Client {
     public void llegeix() {
         //TODO
     }
+
     private void atura() {
         try {
             //TODO
@@ -103,7 +109,5 @@ public class Client {
     public String getMissatge() {
         return missatge;
     }
-
-    
 
 }

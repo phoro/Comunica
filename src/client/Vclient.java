@@ -11,14 +11,13 @@ package client;
  */
 public class Vclient extends javax.swing.JFrame {
     
-   
-
+Client cliente =null;
     /**
      * Creates new form Vclient
      */
-    public Vclient() {
+    public Vclient(Client client) {
         initComponents();
-        
+       cliente = client;
     }
 
     /**
@@ -146,7 +145,9 @@ public class Vclient extends javax.swing.JFrame {
     private void jButtoncomprovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncomprovaActionPerformed
         // TODO add your handling code here:
        Client.missatge =(jTextFieldnom.getText());
-        //Client.engega();
+       cliente.engega();
+       
+        
     }//GEN-LAST:event_jButtoncomprovaActionPerformed
 
     private void jButtonsurtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonsurtActionPerformed
@@ -184,7 +185,7 @@ public class Vclient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Vclient().setVisible(true);
+                //new Vclient().setVisible(true);
             }
         });
     }
