@@ -10,21 +10,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * escolta els clients pel port designat es comunica amb una base de dades
  *
  * @author GAME
  */
 public class Servidor {
 
-    //TODO establir connexió al servidor BD (p.e. postgresql)
     public static void main(String[] args) {
         //port del servidor
         final int PORT = 5000;
@@ -35,6 +28,9 @@ public class Servidor {
         DataInputStream in;
         DataOutputStream out;
 
+        // Connexió amb la base de dades
+        Data data = null;
+
         try {
 
             //socket del servidor
@@ -43,7 +39,7 @@ public class Servidor {
 
             //Escolta continua
             while (true) {
-                connectaBD("con");
+                data.connectaBD();
 
                 //Espera que es connecti un client
                 sclient = servidor.accept();
@@ -58,7 +54,7 @@ public class Servidor {
 
                 System.out.println("Servidor ha rebut el següent missatge: " + missatge);
 
-                //Le envio un mensaje
+                //Resposta
                 out.writeUTF("¡Hola món des del servidor!");
 
                 //Desconnecto client
@@ -68,35 +64,6 @@ public class Servidor {
             }
 
         } catch (IOException ex) {
-
-        }
-    }
-
-    public static void connectaBD(String missatge) {
-        String server = "127.0.0.1";
-        int port = 5432;
-        String user ="ucomunica";
-        String pass = "pcomunica";
-        String database="comunica";
-       ResultSet resultSet = null;
-        try {
-            //registra el driver per a la connexió amb al servidor
-            Class.forName("org.postgresql.Driver");
-            //Estableix connexió
-            Connection connexio = DriverManager.getConnection("jdbc:postgresql://localhost:5432/comunica", user, pass);
-            
-            // Create and execute a SELECT SQL statement.
-            Statement statement = connexio.createStatement();
-            String selectSql = "SELECT * from caixer";
-            resultSet = statement.executeQuery(selectSql);
-
-            // Print results from select statement
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(2) + " " + resultSet.getString(3));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
 
         }
     }
