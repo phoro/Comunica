@@ -30,19 +30,26 @@ public class Servidor {
     // per comunicar-se amb la bd
     private Data data = new Data("comunica");
 
+    Vservidor vservidor = new Vservidor();
+
     public static void main(String[] args) {
 
         Servidor server = new Servidor();
         server.engega();
+
     }
 
     public void engega() {
 
         try {
-            
+            // fa visible la UI 
+            vservidor.setVisible(true);
+
             data.connectaBD("127.0.0.1", 5432, "ucomunica", "pcomunica");
             //socket del servidor
             servidor = new ServerSocket(PORT);
+
+            vservidor.infotext("Servidor iniciat");
             System.out.println("Servidor iniciat");
 
             //Escolta continua de peticions de clients 
@@ -50,7 +57,10 @@ public class Servidor {
 
                 //Espera que es connecti un client
                 sclient = servidor.accept();
+
+                vservidor.infotext("Client connectat");
                 System.out.println("Client connectat");
+                
 
                 // stream de dades i/o vinculat al socket client
                 in = new DataInputStream(sclient.getInputStream());
@@ -59,6 +69,7 @@ public class Servidor {
                 //Llegeix missatge entrant
                 String missatge = in.readUTF();
 
+                vservidor.infotext("Servidor ha rebut el següent missatge: " + missatge);
                 System.out.println("Servidor ha rebut el següent missatge: " + missatge);
 
                 //Resposta
@@ -67,6 +78,7 @@ public class Servidor {
 
                 //Desconnecto client
                 sclient.close();
+                vservidor.infotext("Client desconnectat");
                 System.out.println("Client desconectat");
 
             }
@@ -76,5 +88,4 @@ public class Servidor {
         }
     }
 
-    
 }

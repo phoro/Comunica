@@ -29,8 +29,8 @@ public class Client {
         Socket sclient;
         
         //missatge a  enviar
-       private String missatge= "hola";
-
+       public static String missatge= "";
+    Vclient vclient = new Vclient();
     public Client() {
 
     }
@@ -42,15 +42,16 @@ public class Client {
     public static void main(String[] args) {
         // host servidor i port
         Client cliente = new Client();
-        //cliente.engega();
+        cliente.engega();
         
-        Vclient vclient = new Vclient();
-        vclient.setVisible(true);
+        
+        
 
     }
 
     public void engega() {
         try {
+            vclient.setVisible(true);
             //socket client
             sclient = new Socket(HOST, PORT);
 
@@ -59,7 +60,7 @@ public class Client {
             out = new DataOutputStream(sclient.getOutputStream());
 
             //Envia missatge
-            envia();
+            envia("hola");
 
             //Rep missatge
             String missatgerebut = in.readUTF();
@@ -89,7 +90,7 @@ public class Client {
         //TODO
     }
 
-    public void envia() {
+    public void envia(String missatge) {
         try {
 
             out.writeUTF(missatge);
@@ -103,8 +104,6 @@ public class Client {
         return missatge;
     }
 
-    public void setMissatge(String missatge) {
-        this.missatge = missatge;
-    }
+    
 
 }

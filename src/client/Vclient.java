@@ -11,7 +11,7 @@ package client;
  */
 public class Vclient extends javax.swing.JFrame {
     
-    Client client = new Client();
+   
 
     /**
      * Creates new form Vclient
@@ -37,8 +37,13 @@ public class Vclient extends javax.swing.JFrame {
         jButtoncomprova = new javax.swing.JButton();
         jLabelpass = new javax.swing.JLabel();
         jTextFieldpass = new javax.swing.JTextField();
+        jButtonsurt = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreainfo = new javax.swing.JTextArea();
+        jLabelinfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Client");
 
         jTextFieldnom.setText("escriu el nom");
 
@@ -59,6 +64,19 @@ public class Vclient extends javax.swing.JFrame {
 
         jTextFieldpass.setText("password");
 
+        jButtonsurt.setText("Surt");
+        jButtonsurt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonsurtActionPerformed(evt);
+            }
+        });
+
+        jTextAreainfo.setColumns(20);
+        jTextAreainfo.setRows(5);
+        jScrollPane1.setViewportView(jTextAreainfo);
+
+        jLabelinfo.setText("info");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,21 +85,29 @@ public class Vclient extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtoncomprova)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelnom)
-                            .addComponent(jTextFieldnom, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelpass))
-                        .addGap(68, 68, 68)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelnom)
+                                    .addComponent(jTextFieldnom, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelpass))
+                                .addGap(68, 68, 68))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelinfo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldsaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelsaldo))
-                        .addGap(58, 58, 58))))
+                            .addComponent(jLabelsaldo)
+                            .addComponent(jButtonsurt))
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtoncomprova)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +124,20 @@ public class Vclient extends javax.swing.JFrame {
                     .addComponent(jTextFieldpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jButtoncomprova)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonsurt)
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelinfo)))
+                        .addContainerGap(33, Short.MAX_VALUE))))
         );
 
         pack();
@@ -106,9 +145,14 @@ public class Vclient extends javax.swing.JFrame {
 
     private void jButtoncomprovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncomprovaActionPerformed
         // TODO add your handling code here:
-        client.setMissatge(jTextFieldnom.getText());
-        client.engega();
+       Client.missatge =(jTextFieldnom.getText());
+        //Client.engega();
     }//GEN-LAST:event_jButtoncomprovaActionPerformed
+
+    private void jButtonsurtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonsurtActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonsurtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,12 +188,21 @@ public class Vclient extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void infotext(String info){
+        jTextAreainfo.setText(jTextAreainfo.getText()+"\n"+info);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtoncomprova;
+    private javax.swing.JButton jButtonsurt;
+    private javax.swing.JLabel jLabelinfo;
     private javax.swing.JLabel jLabelnom;
     private javax.swing.JLabel jLabelpass;
     private javax.swing.JLabel jLabelsaldo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreainfo;
     private javax.swing.JTextField jTextFieldnom;
     private javax.swing.JTextField jTextFieldpass;
     private javax.swing.JTextField jTextFieldsaldo;
