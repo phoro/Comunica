@@ -93,16 +93,19 @@ Client cliente =null;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelpass))
-                                .addGap(68, 68, 68))
+                                .addGap(62, 62, 62))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelinfo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldsaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelsaldo)
-                            .addComponent(jButtonsurt))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFieldsaldo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(23, 23, 23)
+                                    .addComponent(jButtonsurt)))
+                            .addComponent(jLabelsaldo))
                         .addGap(17, 17, 17))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtoncomprova)
@@ -206,6 +209,6 @@ Client cliente =null;
     private javax.swing.JTextArea jTextAreainfo;
     private javax.swing.JTextField jTextFieldnom;
     private javax.swing.JTextField jTextFieldpass;
-    private javax.swing.JTextField jTextFieldsaldo;
+    public javax.swing.JTextField jTextFieldsaldo;
     // End of variables declaration//GEN-END:variables
 }

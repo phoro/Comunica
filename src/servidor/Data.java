@@ -25,12 +25,10 @@ public class Data {
     //el constructor ocnnect la base de dades  
     public Data(String database) {
         this.database = database;
-        
 
     }
 
     public void connectaBD(String server, int port, String user, String pass) {
-          
 
         try {
             //registra el driver per a la connexió amb al servidor
@@ -54,15 +52,51 @@ public class Data {
             statement = connexio.createStatement();
             String selectSql = "SELECT * from caixer";
             resultSet = statement.executeQuery(selectSql);
+            /*
             //imprimeix
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(2) + " " + resultSet.getString(3));
             }
-
+             */
         } catch (SQLException ex) {
             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
 
         }
+
+    }
+
+    //comprova si existeix l'usuari
+    // Torna saldo positiu si el troba
+    //Torna negatiu en cas de no trobar
+    public int nomipass(String nomipass) {
+        int indicador = 0;
+        ResultSet resultSet = null;
+        // Create and execute a SELECT SQL statement.
+        Statement statement;
+        try {
+            statement = connexio.createStatement();
+            String selectSql = "SELECT saldo FROM caixer WHERE nom = " + "\'" + nomipass + "\'";
+            resultSet = statement.executeQuery(selectSql);
+            
+            if (!resultSet.next()) {//si dona fals, no hi ha resultats
+                indicador = -1;
+                
+            } else{
+                indicador = resultSet.getInt(1);
+                System.out.println(resultSet.getString(1));
+            }
+
+            
+            //imprimeix
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return indicador;
 
     }
 

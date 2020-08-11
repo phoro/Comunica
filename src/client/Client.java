@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author r0b
  */
 public class Client {
-    
+
     //Servidor host i port
     final String HOST = "127.0.0.1";
     final int PORT = 5000;
@@ -31,16 +31,14 @@ public class Client {
 
     //missatge a  enviar
     public static String missatge = "buit";
-    
+
     Vclient vclient = new Vclient(this);
-           
 
     //Constructor
     public Client() {
 
     }
 
-    
     /**
      * @param args the command line arguments
      */
@@ -48,14 +46,13 @@ public class Client {
         // host servidor i port
         Client cliente = new Client();
         cliente.engega();
-        
 
     }
 
     public void engega() {
         try {
             //UI
-     vclient.setVisible(true);
+            vclient.setVisible(true);
             //socket client
             sclient = new Socket(HOST, PORT);
 
@@ -66,10 +63,8 @@ public class Client {
             //Envia missatge
             envia(missatge);
 
-            //Rep missatge
-            String missatgerebut = in.readUTF();
-            System.out.println("client: em diuen " + missatgerebut);
-            vclient.infotext(missatgerebut+"\n");
+            //Llegeix missatge
+            llegeix();
 
             atura();
 
@@ -80,7 +75,22 @@ public class Client {
     }
 
     public void llegeix() {
-        //TODO
+
+        String missatgerebut;
+        try {
+            missatgerebut = in.readUTF();
+            if (missatgerebut.equals("¡Hola món des del servidor!")){
+                System.out.println("client: em diuen " + missatgerebut);
+                vclient.infotext(missatgerebut + "\n");
+            } else {
+                vclient.jTextFieldsaldo.setText(missatgerebut);
+            }
+            
+
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void atura() {

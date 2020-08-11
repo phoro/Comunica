@@ -10,6 +10,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * escolta els clients pel port designat es comunica amb una base de dades
@@ -60,7 +62,6 @@ public class Servidor {
 
                 vservidor.infotext("Client connectat");
                 System.out.println("Client connectat");
-                
 
                 // stream de dades i/o vinculat al socket client
                 in = new DataInputStream(sclient.getInputStream());
@@ -72,9 +73,11 @@ public class Servidor {
                 vservidor.infotext("Servidor ha rebut el següent missatge: " + missatge);
                 System.out.println("Servidor ha rebut el següent missatge: " + missatge);
 
+                analitzamissatge(missatge);
+
                 //Resposta
-                data.taulaAll("caixer");
-                out.writeUTF("¡Hola món des del servidor!");
+                //data.taulaAll("caixer");
+                //out.writeUTF("¡Hola món des del servidor!");
 
                 //Desconnecto client
                 sclient.close();
@@ -86,6 +89,38 @@ public class Servidor {
         } catch (IOException ex) {
 
         }
+    }
+
+    //Torna 
+    private void analitzamissatge(String missatge) {
+
+        if (missatge.equals("buit")) {// primera connexió
+   
+            try {
+                System.out.println("comunicació establerta");
+                out.writeUTF("¡Hola món des del servidor!");
+            } catch (IOException ex) {
+                Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (data.nomipass(missatge) < 0) {
+                System.out.println("no sha trobat el nom");
+
+            } else if (data.nomipass(missatge) > 0) {
+                
+                try {
+                    System.out.println("usuaria identificada");
+                    out.writeUTF(String.valueOf((data.nomipass(missatge))));
+                } catch (IOException ex) {
+                    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            } else {
+                System.out.println("nomipass dona 0");
+                
+            }
+        }
+
     }
 
 }
