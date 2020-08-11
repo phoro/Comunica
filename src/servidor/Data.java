@@ -66,10 +66,10 @@ public class Data {
     }
 
     //comprova si existeix l'usuari
-    // Torna saldo positiu si el troba
-    //Torna negatiu en cas de no trobar
-    public int nomipass(String nomipass) {
-        int indicador = 0;
+    // Torna saldo si el troba
+    //
+    public String nomipass(String nomipass) {
+        String saldo = "res";
         ResultSet resultSet = null;
         // Create and execute a SELECT SQL statement.
         Statement statement;
@@ -79,24 +79,25 @@ public class Data {
             resultSet = statement.executeQuery(selectSql);
             
             if (!resultSet.next()) {//si dona fals, no hi ha resultats
-                indicador = -1;
+                saldo = "Sense resultats";
                 
             } else{
-                indicador = resultSet.getInt(1);
-                System.out.println(resultSet.getString(1));
+                saldo = resultSet.getString(1);
+                //System.out.println(resultSet.getString(1));
             }
 
-            
-            //imprimeix
+            /*
+            //imprimeix tots els resultats
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1));
             }
+            */
         } catch (SQLException ex) {
             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
-        return indicador;
+        return saldo;
 
     }
 

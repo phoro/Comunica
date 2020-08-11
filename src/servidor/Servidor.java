@@ -78,7 +78,6 @@ public class Servidor {
                 //Resposta
                 //data.taulaAll("caixer");
                 //out.writeUTF("¡Hola món des del servidor!");
-
                 //Desconnecto client
                 sclient.close();
                 vservidor.infotext("Client desconnectat");
@@ -94,33 +93,36 @@ public class Servidor {
     //Torna 
     private void analitzamissatge(String missatge) {
 
-        if (missatge.equals("buit")) {// primera connexió
-   
-            try {
+        try {
+
+            if (missatge.equals("buit")) {// primera connexió
+
                 System.out.println("comunicació establerta");
                 out.writeUTF("¡Hola món des del servidor!");
-            } catch (IOException ex) {
-                Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            if (data.nomipass(missatge) < 0) {
-                System.out.println("no sha trobat el nom");
 
-            } else if (data.nomipass(missatge) > 0) {
-                
-                try {
-                    System.out.println("usuaria identificada");
-                    out.writeUTF(String.valueOf((data.nomipass(missatge))));
-                } catch (IOException ex) {
-                    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
             } else {
-                System.out.println("nomipass dona 0");
-                
-            }
-        }
+                if (data.nomipass(missatge).equals("Sense resultats")) {
+                    out.writeUTF("Sense resultats");//envia missatge
+                    vservidor.infotext("no sha trobat el nom");
+                    System.out.println("no sha trobat el nom");
 
+                } else {
+
+                    try {
+                        vservidor.infotext("usuaria identificada: " + missatge);
+                        System.out.println("usuaria identificada");
+                        out.writeUTF((data.nomipass(missatge)));// envia saldo
+                        vservidor.infotext("informant " + data.nomipass(missatge));
+                    } catch (IOException ex) {
+                        Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

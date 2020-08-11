@@ -45,14 +45,20 @@ public class Client {
     public static void main(String[] args) {
         // host servidor i port
         Client cliente = new Client();
-        cliente.engega();
+        cliente.init();
 
+    }
+    
+    public void init(){
+        engega();
+        //UI
+            vclient.setVisible(true);
+            
     }
 
     public void engega() {
         try {
-            //UI
-            vclient.setVisible(true);
+            
             //socket client
             sclient = new Socket(HOST, PORT);
 
@@ -66,9 +72,9 @@ public class Client {
             //Llegeix missatge
             llegeix();
 
-            atura();
+            //atura();
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
 
         }
 
@@ -79,15 +85,17 @@ public class Client {
         String missatgerebut;
         try {
             missatgerebut = in.readUTF();
-            if (missatgerebut.equals("¡Hola món des del servidor!")){
-                System.out.println("client: em diuen " + missatgerebut);
+            if ((missatgerebut.equals("¡Hola món des del servidor!")) || (missatgerebut.equals("Sense resultats") )){
                 vclient.infotext(missatgerebut + "\n");
-            } else {
-                vclient.jTextFieldsaldo.setText(missatgerebut);
+            } else{
+                //imprimeix saldo
+                    vclient.jTextFieldsaldo.setText(missatgerebut);
             }
+            
             
 
         } catch (IOException ex) {
+            System.out.println("error I/O " );
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
 
